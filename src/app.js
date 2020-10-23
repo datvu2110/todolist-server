@@ -35,7 +35,7 @@ app.get('/todo/:id', (req,res) => {
     const {id} =  req.params
     db('todo').where({
         id: id
-    }).select('todo','noteid', 'id')
+    }).select('todo','noteid', 'id',"done")
 
     .then(item => {
         res.json(item)
@@ -118,6 +118,22 @@ app.put('/todo/:id', (req,res) => {
                     res.send(todo)
                 })
                 })
+})
+
+app.put('/toggle/:id', (req,res) => {
+    const {done} =  req.body
+    const {id} = req.params
+
+    db('todo').where ('noteid', id)
+                    .returning('*')
+                    .update({
+                        done: done
+                    })
+                    .then (response => {
+                        db.select().from('todo').where('noteid',id).then( function(todo){
+                            res.send(todo)
+                        })
+                    })
 })
 
 app.post('/add/:id',  (req,res) => {
