@@ -3,7 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const { NODE_ENV } = require('./config')
+const { NODE_ENV, DATABASE_URL } = require('./config')
 const knex = require('knex')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt-nodejs')
@@ -13,7 +13,7 @@ const app = express()
 
 const db = knex({
     client:'pg',
-    connection: 'postgres://:@localhost/noteapp'
+    connection: DATABASE_URL,
 })
 
 const morganOption = (NODE_ENV === 'production')
