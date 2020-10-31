@@ -14,9 +14,7 @@ const app = express()
 
 const db = knex({
     client:'pg',
-    connection: {
-        connection: "postgres://vxmydvjbiuzihh:c8e74b6811b5ea111927bb70d55df5aab67041ac3639b64ec15ee088ab120244@ec2-54-224-124-241.compute-1.amazonaws.com:5432/demrqf2a5nv6iu?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"
-    }
+    connection: "postgres://vxmydvjbiuzihh:c8e74b6811b5ea111927bb70d55df5aab67041ac3639b64ec15ee088ab120244@ec2-54-224-124-241.compute-1.amazonaws.com:5432/demrqf2a5nv6iu?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"
 })
 
 const morganOption = (NODE_ENV === 'production')
