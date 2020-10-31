@@ -8,6 +8,7 @@ const knex = require('knex')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt-nodejs')
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 const app = express()
 
