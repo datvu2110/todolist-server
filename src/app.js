@@ -12,10 +12,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 const app = express()
 
-const db = knex({
-    client:'pg',
-    connection: "postgres://vxmydvjbiuzihh:c8e74b6811b5ea111927bb70d55df5aab67041ac3639b64ec15ee088ab120244@ec2-54-224-124-241.compute-1.amazonaws.com:5432/demrqf2a5nv6iu?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"
-})
+
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -24,14 +21,16 @@ const morganOption = (NODE_ENV === 'production')
 
 app.use(morgan(morganOption))
 app.use(helmet())
-app.use(cors())
+
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+app.use(cors())
+
+const db = knex({
+    client:'pg',
+    connection: "postgres://vxmydvjbiuzihh:c8e74b6811b5ea111927bb70d55df5aab67041ac3639b64ec15ee088ab120244@ec2-54-224-124-241.compute-1.amazonaws.com:5432/demrqf2a5nv6iu?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"
+})
 
 app.get('/', (req, res) => {
 	res.send("it is working!!")
