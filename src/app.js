@@ -8,32 +8,27 @@ const knex = require('knex')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt-nodejs')
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 const app = express()
-
-
-
-const morganOption = (NODE_ENV === 'production')
-  ? 'tiny'
-  : 'common';
-  
-
-app.use(morgan(morganOption))
-app.use(helmet())
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-
-app.use(cors())
 
 const db = knex({
     client:'pg',
     connection: "postgres://vxmydvjbiuzihh:c8e74b6811b5ea111927bb70d55df5aab67041ac3639b64ec15ee088ab120244@ec2-54-224-124-241.compute-1.amazonaws.com:5432/demrqf2a5nv6iu?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"
 })
 
+const morganOption = (NODE_ENV === 'production')
+  ? 'tiny'
+  : 'common';
+
+app.use(morgan(morganOption))
+app.use(helmet())
+app.use(cors())
+app.use(bodyParser.json())
+
+
+
 app.get('/', (req, res) => {
-	res.send("it is working!!")
+    res.send("it is working!!")
 })
 
 app.get('/todo/:id', (req,res) => {
@@ -209,5 +204,3 @@ app.use(function errorHandler(error, req, res, next) {
 })
 
 module.exports = app
-
-// https://buildpack-registry.s3.amazonaws.com/buildpacks/mars/create-react-app.tgz
