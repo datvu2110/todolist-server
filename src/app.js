@@ -26,7 +26,13 @@ app.use(helmet())
 app.use(cors())
 app.use(bodyParser.json())
 
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+});
 
 app.get('/', (req, res) => {
 	res.send("it is working!!")
@@ -205,3 +211,5 @@ app.use(function errorHandler(error, req, res, next) {
 })
 
 module.exports = app
+
+// https://buildpack-registry.s3.amazonaws.com/buildpacks/mars/create-react-app.tgz
